@@ -1,13 +1,13 @@
-package com.simple.service;
+package com.simple.dao;
 
 import java.util.ArrayList;
 
 import com.simple.command.ScoreVO;
 
-public interface ScoreService {
-	
+public interface ScoreDAO {
+
 	public void scoreRegist(ScoreVO vo);
 	public ArrayList<ScoreVO> getScores();
 	public void scoreDelete(int index);
-
+	
 }

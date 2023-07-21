@@ -15,7 +15,7 @@
 		</listener-class>
 	</listener>
 
-	<!-- Processes application requests -->
+	<!-- 3. 스프링 디스패처 서블릿 등록 -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet

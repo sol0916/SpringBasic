@@ -1,9 +1,14 @@
 package com.simple.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.simple.command.ScoreVO;
 import com.simple.service.ScoreService;
@@ -23,7 +28,8 @@ public class ScoreController {
 	
 	//3nd
 	@Autowired
-	ScoreService service;
+	@Qualifier("scoreService")
+	ScoreService scoreService;
 	
 	
 	//등록화면
@@ -34,7 +40,13 @@ public class ScoreController {
 
 	//목록화면
 	@RequestMapping("/scoreList")
-	public String scoreList() {
+	public String scoreList(Model model) {
+		
+		//반환 받은 데이터
+		ArrayList<ScoreVO> list = scoreService.getScores();
+		model.addAttribute("list", list);
+		
+		
 		return "service/scoreList";
 	}
 
@@ -48,10 +60,19 @@ public class ScoreController {
 	@RequestMapping(value="/scoreForm", method=RequestMethod.POST)
 	public String scoreForm(ScoreVO vo) {
 		
-		//service.scoreRegist(vo);
+		scoreService.scoreRegist(vo);
 		
 		
-		return "";
+		return "redirect:/service/scoreResult"; //등록 이후에 결과 화면으로
+	}
+	
+	//삭제요청
+	@RequestMapping("/scoreDelete")
+	public String scoreDelete(@RequestParam("num") int index) {
+		
+		scoreService.scoreDelete(index);
+		
+		return "redirect:/service/scoreList"; //삭제 이후에는 목록으로
 	}
 
 }

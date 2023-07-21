@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace에는 구현 인터페이스 풀경로 -->
+	<mapper namespace="com.simple.basic.mapper.TestMapper">
+	
+		<!-- id는 추상메서드 이름이 들어갑니다 -->
+		<!-- select 태그에 resultType에는 결과를 반환 받아서 나올 타입 or 객체 -->
+		<!-- resultType은 resultSet과 비슷함 select문에서는 무조건 적어줘야 함 -->
+		<!-- 세미콜론은 적지 않습니다 -->
+		<select id="getTime" resultType="string">
+			select now()
+		
+		</select>
+	
+	</mapper>  

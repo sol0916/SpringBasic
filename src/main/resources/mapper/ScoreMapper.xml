@@ -11,5 +11,15 @@
 		<insert id="scoreRegist" parameterType="com.simple.command.ScoreVO">
 			insert into score(name, kor, eng) values(#{name}, #{kor}, #{eng})	
 		</insert>
+		
+		<!-- select문의 맵핑할 vo의 풀경로가 들어갑니다 -->
+		<select id="getScores" resultType="com.simple.command.ScoreVO">
+			select * from score order by num desc
+		</select>
+		
+		<!-- 매개변수가 1개 일때는 ?는 변수명을 따라갑니다 -->
+		<delete id="scoreDelete" parameterType="int">
+			delete from score where num = #{index} 		
+		</delete>
 	
 	</mapper>  

@@ -24,14 +24,13 @@ public class ScoreServiceImpl implements ScoreService {
 	
 	@Override
 	public ArrayList<ScoreVO> getScores() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return scoreMapper.getScores();
 	}
 	
 	@Override
 	public void scoreDelete(int index) {
-		// TODO Auto-generated method stub
-		
+		scoreMapper.scoreDelete(index);
 	}
 	
 	

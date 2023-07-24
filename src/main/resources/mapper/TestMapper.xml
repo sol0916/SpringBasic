@@ -14,5 +14,80 @@
 			select now()
 		
 		</select>
-	
+		
+		<!-- 파라미터타입 - int, double, string -->
+		<!-- 매개변수가 단일값이라면 인터페이스 이름을 따라갑니다. -->
+		<!-- parameterType="string" 파라미터 타입은 생략이 가능함  -->
+		<insert id="insertOne">
+			insert into score (name)
+			values (#{name})
+		</insert>
+		
+		<!-- vo가 매개변수인 경우에는 getter명을 따라갑니다 -->
+		<insert id="insertTwo">
+			insert into score (name, kor, eng)
+			values (#{name}, #{kor}, #{eng})
+		</insert>
+		
+		<insert id="insertThree">
+			insert into score (name, kor, eng)
+			values (#{name}, #{kor}, #{eng})
+		</insert>
+		
+		<insert id="insertFour">
+			insert into score (name, kor, eng)
+			values (#{name}, #{kor}, #{eng})
+		</insert>
+		
+		
+		<!-- 업데이트문 -->
+		<update id="updateOwn">
+			update score set name = #{name}, kor = #{kor}, eng = #{eng}
+			where num = #{num}
+		</update>
+		
+		
+		<!-- 셀렉트문 resultType이 필수 -->
+		<!-- 엘리어스에 등록이 되어있다면 단축명을 사용할 수 있습니다 -->
+		<select id="selectOne" resultType="ScoreVO">
+			select * from score where num = #{num}
+		</select>	
+		
+		<select id="selectTwo" resultType="map">
+			select * from score where num = #{num}
+		</select>
+		
+		<select id="selectThree" resultType="map">
+			select * from score
+		</select>
+		
+		
+		<!-- M:1조인 -->
+		<select id="joinOne" resultType="ScoreVO">
+			select * from score s 
+			left join member m
+			on s.name = m.id
+		</select>
+		
+		<!-- 1:M조인 -->
+		<!-- resultMap은 1:N조인 처리 -->
+		<select id="joinTwo" resultMap="xxx">
+			select * from member m 
+			left join score s 
+			on m.id = s.name where id = #{name};
+		</select>
+		
+		<!-- type=ORM객체 id=명칭 -->
+		<resultMap type="com.simple.command.MemberVO" id="xxx">
+			<result column="id" property="id" /> <!-- property에는 MemberVO의 setter명이 들어감 -->
+			<result column="addr" property="addr" /> <!-- property에는 MemberVO의 setter명이 들어감 -->
+			<collection property="list" resultMap="yyy" /> <!-- property에는 MemberVO의 setter명이 들어감 -->
+		</resultMap>
+		
+		<resultMap type="com.simple.command.ScoreVO" id="yyy">
+			<result column="num" property="num"/>
+			<result column="name" property="name"/>
+			<result column="kor" property="kor"/>
+			<result column="eng" property="eng"/>
+		</resultMap>
 	</mapper>  
